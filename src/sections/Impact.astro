@@ -1,53 +1,49 @@
 ---
-import { RefreshCcw, Sparkles, Target, TrendingUp } from "lucide-astro";
+import { BookOpen, HeartHandshake, Lightbulb, Users } from "lucide-astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import { socialImpactItems } from "../data/site.js";
 
-const impactItems = [
-  {
-    title: "Productividad",
-    text: "Menos tiempo en tareas repetitivas y más foco en decisiones.",
-    Icon: TrendingUp,
-  },
-  {
-    title: "Creatividad",
-    text: "Nuevas ideas, formatos y posibilidades para comunicar.",
-    Icon: Sparkles,
-  },
-  {
-    title: "Mejores decisiones",
-    text: "Más claridad para analizar, comparar y actuar con criterio.",
-    Icon: Target,
-  },
-  {
-    title: "Adaptación al cambio",
-    text: "Confianza para integrar nuevas herramientas sin miedo.",
-    Icon: RefreshCcw,
-  },
-];
+const iconByTitle = {
+  "Brecha de conocimiento": BookOpen,
+  "Nuevas oportunidades": Lightbulb,
+  "Educación y comunidad": Users,
+  "Uso responsable": HeartHandshake,
+};
 ---
 
-<section class="section-pad bg-slateDeep/60">
+<section id="sociedad" class="section-pad bg-slateDeep/60">
   <div class="container-page">
-    <SectionHeading
-      eyebrow="Impacto"
-      title="Cuando una persona entiende la IA, la amenaza se convierte en aliada."
-    >
-      <p>
-        Aumenta productividad, creatividad y capacidad de adaptarse al cambio
-        con mejores decisiones.
-      </p>
-    </SectionHeading>
+    <div data-reveal>
+      <SectionHeading
+        eyebrow="IA y sociedad en Latinoamérica"
+        title="La IA ya está cambiando nuestra sociedad"
+      >
+        <p>
+          En Latinoamérica, el desafío no es solo acceder a nuevas tecnologías,
+          sino comprenderlas, usarlas con criterio y ponerlas al servicio de las
+          personas.
+        </p>
+      </SectionHeading>
+    </div>
     <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {
-        impactItems.map(({ title, text, Icon }) => (
-          <div class="glass rounded-3xl p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-violet">
-            <span class="mb-8 grid h-14 w-14 place-items-center rounded-2xl bg-cyan-300/10 text-brandCyan ring-1 ring-cyan-300/20">
-              <Icon size={26} stroke-width={1.8} />
-            </span>
-            <h3 class="text-2xl font-black text-white">{title}</h3>
-            <p class="mt-3 leading-7 text-slate-400">{text}</p>
-          </div>
-        ))
+        socialImpactItems.map(({ title, description }, i) => {
+          const Icon = iconByTitle[title as keyof typeof iconByTitle] ?? Lightbulb;
+
+          return (
+            <div
+              class="rounded-3xl border border-slate-400/20 bg-cardSurface/70 p-6 transition duration-300 hover:-translate-y-1 hover:border-brandSky/35 hover:shadow-glow"
+              data-reveal
+              style={`transition-delay: ${i * 80}ms`}
+            >
+              <span class="mb-8 grid h-14 w-14 place-items-center rounded-2xl bg-cyan-300/10 text-brandCyan ring-1 ring-cyan-300/20">
+                <Icon size={26} stroke-width={1.8} />
+              </span>
+              <h3 class="text-2xl font-black text-white">{title}</h3>
+              <p class="mt-3 leading-7 text-slate-400">{description}</p>
+            </div>
+          );
+        })
       }
     </div>
   </div>

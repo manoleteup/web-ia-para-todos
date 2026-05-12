@@ -2,13 +2,16 @@
 import SectionHeading from "../components/SectionHeading.astro";
 import { CONTACT } from "../data/site.js";
 import { buildWhatsAppUrl } from "../data/automation.js";
+import { withBase } from "../utils/url.ts";
+
+const contactAction = withBase("/contact.php");
 ---
 
 <section id="contacto" class="section-pad bg-night">
   <div
     class="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
   >
-    <div>
+    <div data-reveal>
       <SectionHeading
         eyebrow="Contacto"
         title="Solicita información para activar el programa."
@@ -38,9 +41,11 @@ import { buildWhatsAppUrl } from "../data/automation.js";
 
     <form
       class="glass grid gap-5 rounded-[2rem] p-5 sm:p-7"
-      action="/contact.php"
+      action={contactAction}
       method="POST"
       id="contact-form"
+      data-reveal
+      style="transition-delay: 100ms"
     >
       <div id="form-success" class="hidden rounded-lg bg-emerald-500/20 p-4 text-emerald-300">
         ✓ Mensaje enviado con éxito. Nos contactaremos pronto.
@@ -108,7 +113,7 @@ import { buildWhatsAppUrl } from "../data/automation.js";
 </section>
 
 <script>
-  const form = document.getElementById("contact-form");
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const successAlert = document.getElementById("form-success");
   const errorAlert = document.getElementById("form-error");
 
@@ -131,13 +136,15 @@ import { buildWhatsAppUrl } from "../data/automation.js";
       if (data.success) {
         successAlert?.classList.remove("hidden");
         form.reset();
-      } else {
-        errorAlert?.classList.remove("hidden");
+      } else if (errorAlert) {
+        errorAlert.classList.remove("hidden");
         errorAlert.textContent = data.message || "Error al enviar el mensaje.";
       }
     } catch (error) {
-      errorAlert?.classList.remove("hidden");
-      errorAlert.textContent = "Hubo un error. Intenta de nuevo.";
+      if (errorAlert) {
+        errorAlert.classList.remove("hidden");
+        errorAlert.textContent = "Hubo un error. Intenta de nuevo.";
+      }
     }
   });
 </script>

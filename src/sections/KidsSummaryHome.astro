@@ -1,0 +1,83 @@
+---
+import { ArrowRight, Sparkles } from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { kidsCharacters } from "../data/site.js";
+import { withBase } from "../utils/url.ts";
+
+const kidsHref = withBase("/kids/");
+---
+
+<section
+  id="kids-latam"
+  class="home-kids-accent section-pad relative overflow-hidden bg-slateDeep/50"
+>
+  <div
+    class="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-fuchsia-500/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -right-20 bottom-20 h-72 w-72 rounded-full bg-cyan-400/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="container-page relative">
+    <div data-reveal class="flex flex-col items-center text-center">
+      <span
+        class="inline-flex items-center gap-2 rounded-full border border-fuchsia-300/30 bg-fuchsia-300/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-fuchsia-100"
+      >
+        <Sparkles size={12} />
+        Universo Kids
+      </span>
+      <SectionHeading
+        eyebrow=""
+        title="IA Para Todos Kids LATAM"
+        align="center"
+      >
+        <p>
+          Personajes, cuentos y experiencias para que niños y niñas descubran la
+          IA de forma segura, creativa y entretenida.
+        </p>
+      </SectionHeading>
+    </div>
+
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        kidsCharacters.slice(0, 4).map((character, i) => (
+          <article
+            class="home-kids-card"
+            data-reveal
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            <div class="mx-auto flex h-28 w-28 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/50 p-2">
+              <img
+                src={withBase(character.image)}
+                alt={`Personaje ${character.name} IA Para Todos Kids`}
+                class="h-full w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="mt-4 text-xl font-black text-white">{character.name}</h3>
+            <p class="mt-1 text-sm font-semibold text-cyan-100">
+              {character.role}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div data-reveal class="mt-10 flex justify-center">
+      <a
+        class="group/cta inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 to-cyan-400 px-5 py-3 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(244,114,182,0.28)] transition hover:-translate-y-0.5 hover:from-fuchsia-400 hover:to-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-cyan-200"
+        href={kidsHref}
+      >
+        Entrar al universo Kids
+        <ArrowRight
+          size={16}
+          class="transition-transform duration-300 group-hover/cta:translate-x-1"
+        />
+      </a>
+    </div>
+  </div>
+</section>

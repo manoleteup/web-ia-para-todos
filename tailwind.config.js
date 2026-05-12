@@ -19,7 +19,7 @@ export default {
       },
       boxShadow: {
         glow: "0 0 40px rgba(96, 165, 250, 0.12)",
-        violet: "0 0 44px rgba(99, 102, 241, 0.14)",
+        violet: "0 0 32px rgba(99, 102, 241, 0.1)",
       },
       backgroundImage: {
         "radial-grid":

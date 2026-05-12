@@ -1,0 +1,104 @@
+---
+import {
+  ArrowRight,
+  BookOpen,
+  GraduationCap,
+  HeartHandshake,
+  Sparkles,
+  Users,
+} from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { ecosystemCards } from "../data/site.js";
+import { withBase } from "../utils/url.ts";
+
+function resolveHref(href: string): string {
+  if (!href) return href;
+  if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) return href;
+  if (href.startsWith("#")) return href;
+  const withTrailing =
+    href === "/" || href.includes(".") || href.endsWith("/")
+      ? href
+      : `${href}/`;
+  return withBase(withTrailing);
+}
+
+const itemIcons: Record<string, typeof Sparkles> = {
+  Talleres: GraduationCap,
+  "Programa Social": HeartHandshake,
+  Libro: BookOpen,
+  Cursos: Users,
+  Personajes: Sparkles,
+  Libros: BookOpen,
+  Cuentos: Users,
+  Herramientas: GraduationCap,
+};
+---
+
+<section id="ecosistema" class="section-pad bg-slateDeep/50">
+  <div class="container-page">
+    <div data-reveal>
+      <SectionHeading
+        eyebrow="Ecosistema de aprendizaje"
+        title="Un ecosistema de aprendizaje en Inteligencia Artificial"
+        align="center"
+      >
+        <p>
+          IA Para Todos LATAM reúne formación, contenidos, talleres, libros y
+          experiencias educativas para acercar la IA a distintos públicos.
+        </p>
+      </SectionHeading>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      {
+        ecosystemCards.map((card, index) => (
+          <article
+            class="ecosystem-card"
+            data-reveal
+            style={`transition-delay: ${index * 90}ms`}
+          >
+            <div class="relative">
+              <div class="ecosystem-line-badge">
+                <span class="grid h-5 w-5 place-items-center rounded-full bg-cyan-300/25 text-[10px] font-black text-cyan-50">
+                  {index + 1}
+                </span>
+                Línea {index + 1}
+              </div>
+              <h3 class="mt-4 text-3xl font-black leading-tight text-white">
+                {card.title}
+              </h3>
+              <p class="mt-4 leading-7 text-slate-300">{card.description}</p>
+
+              <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                {card.items.map((item) => {
+                  const Icon = itemIcons[item] ?? Sparkles;
+                  return (
+                    <li class="ecosystem-item">
+                      <span class="grid h-9 w-9 place-items-center rounded-xl bg-cyan-300/10 text-cyan-100 ring-1 ring-cyan-100/20">
+                        <Icon size={18} stroke-width={2} />
+                      </span>
+                      <span class="text-sm font-semibold text-slate-100">
+                        {item}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <a
+                class="btn-secondary group/cta mt-7 inline-flex"
+                href={resolveHref(card.href)}
+              >
+                {card.cta}
+                <ArrowRight
+                  size={16}
+                  class="transition-transform duration-300 group-hover/cta:translate-x-1"
+                />
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

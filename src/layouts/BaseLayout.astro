@@ -1,15 +1,20 @@
 ---
 import "../styles/global.css";
 import { CONTACT } from "../data/site.js";
+import { absoluteUrl } from "../utils/url.ts";
 import favicon from "../assets/favicon.ico";
 
 const {
   title = "IA Para Todos LATAM | Inteligencia Artificial Simple y Real",
-  description = "Programa formativo para aprender Inteligencia Artificial de forma simple, práctica, ética y aplicable. Formación para personas, empresas, instituciones y línea IA Kids.",
+  description = "IA Para Todos LATAM es un ecosistema de aprendizaje que acerca la Inteligencia Artificial a personas, comunidades, instituciones y niños de forma simple, humana y responsable.",
+  canonical = absoluteUrl(CONTACT.siteUrl, "/"),
+  ogUrl = canonical,
+  ogTitle = "IA Para Todos LATAM",
+  ogDescription = "IA Para Todos LATAM es un ecosistema de aprendizaje que acerca la Inteligencia Artificial a personas, comunidades, instituciones y niños de forma simple, humana y responsable.",
+  ogImage = absoluteUrl(CONTACT.siteUrl, "/og-image.jpg"),
 } = Astro.props;
 
-const ogImage = `${CONTACT.siteUrl}/og-image.jpg`;
-const faviconHref = typeof favicon === "string" ? favicon : favicon.src;
+const faviconHref = typeof favicon === "string" ? favicon : (favicon as { src: string }).src;
 ---
 
 <!doctype html>
@@ -20,15 +25,11 @@ const faviconHref = typeof favicon === "string" ? favicon : favicon.src;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#030712" />
     <link rel="icon" href={faviconHref} sizes="any" />
-    <link rel="canonical" href={`${CONTACT.siteUrl}/`} />
-    <meta property="og:title" content="IA Para Todos LATAM" />
-    <meta
-      property="og:description"
-      content="Democratizando la Inteligencia Artificial en Latinoamérica."
-    />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${CONTACT.siteUrl}/`} />
-    <!-- TODO: crear og-image.jpg en 1200x630 y subirlo a la raíz del dominio. -->
+    <meta property="og:url" content={ogUrl} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>

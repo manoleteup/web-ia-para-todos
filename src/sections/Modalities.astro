@@ -45,21 +45,27 @@ const modalities = [
 
 <section id="modalidades" class="section-pad bg-night">
   <div class="container-page">
-    <SectionHeading
-      eyebrow="Modalidades"
-      title="Adaptamos el contenido según el público."
-      align="center"
-    >
-      <p>
-        La implementación puede partir con talleres puntuales o convertirse en
-        programas institucionales completos.
-      </p>
-    </SectionHeading>
+    <div data-reveal>
+      <SectionHeading
+        eyebrow="Modalidades"
+        title="Adaptamos el contenido según el público."
+        align="center"
+      >
+        <p>
+          La implementación puede partir con talleres puntuales o convertirse en
+          programas institucionales completos.
+        </p>
+      </SectionHeading>
+    </div>
     <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {
-        modalities.map(({ title, text, Icon }) => (
-          <div class="group flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.05] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.08] hover:shadow-glow">
-            <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brandViolet/20 text-brandCyan ring-1 ring-white/10">
+        modalities.map(({ title, text, Icon }, i) => (
+          <div
+            class="group flex items-start gap-4 rounded-3xl border border-slate-400/20 bg-cardSurface/70 p-5 transition duration-300 hover:-translate-y-1 hover:border-brandSky/35 hover:shadow-glow"
+            data-reveal
+            style={`transition-delay: ${i * 70}ms`}
+          >
+            <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brandViolet/20 text-brandCyan ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-105">
               <Icon size={25} stroke-width={1.8} />
             </span>
             <span>
