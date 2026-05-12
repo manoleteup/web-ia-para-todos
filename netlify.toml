@@ -1,0 +1,33 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Convención de URLs con trailing slash (matchea astro config)
+[[redirects]]
+  from = "/kids"
+  to = "/kids/"
+  status = 301
+  force = false
+
+# Cache fuerte para assets con hash (inmutables)
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache moderado para imágenes públicas
+[[headers]]
+  for = "/kids/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Security headers globales
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
