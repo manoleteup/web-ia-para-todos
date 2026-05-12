@@ -1,0 +1,56 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { kidsCharacters } from "../data/site.js";
+---
+
+<section id="kids" class="section-pad relative overflow-hidden bg-night">
+  <div
+    class="absolute left-[-8rem] top-16 h-80 w-80 rounded-full bg-brandCyan/20 blur-3xl"
+  >
+  </div>
+  <div
+    class="absolute right-[-8rem] bottom-16 h-80 w-80 rounded-full bg-brandViolet/30 blur-3xl"
+  >
+  </div>
+  <div class="container-page relative">
+    <SectionHeading
+      eyebrow="IA Para Todos Kids LATAM"
+      title="Un universo para que niños y jóvenes aprendan a crear con IA de forma consciente."
+      align="center"
+    >
+      <p>
+        No se trata solo de usar tecnología. Se trata de formar pensamiento
+        crítico, creatividad y responsabilidad digital desde temprana edad.
+      </p>
+    </SectionHeading>
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        kidsCharacters.map((character) => (
+          <article class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-cardSurface/70 p-6 shadow-violet transition hover:-translate-y-1 hover:border-brandSky/45">
+            <div class="relative mx-auto mb-6 grid h-40 w-40 place-items-center overflow-hidden rounded-[2rem] border border-white/10 bg-night/55 p-3 shadow-glow sm:h-44 sm:w-44">
+              <img
+                src={character.image}
+                alt={`Personaje ${character.name} de IA Para Todos Kids LATAM`}
+                class="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="text-center text-3xl font-black text-white">{character.name}</h3>
+            <p class="mt-2 text-center font-bold text-brandCyan">{character.role}</p>
+            <p class="mt-4 min-h-20 text-center text-sm leading-6 text-slate-300">
+              {character.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+    <div
+      class="mx-auto mt-10 max-w-3xl rounded-3xl border border-cyan-300/20 bg-cyan-300/10 p-6 text-center"
+    >
+      <p class="text-lg font-bold leading-8 text-white">
+        Objetivo: formar pequeños creadores digitales conscientes.
+      </p>
+      <a class="btn-primary mt-6" href="#contacto">Conocer línea Kids</a>
+    </div>
+  </div>
+</section>

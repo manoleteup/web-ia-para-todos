@@ -1,0 +1,34 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { promptPillars } from "../data/site.js";
+---
+
+<section class="section-pad relative bg-slateDeep/70">
+  <div class="absolute inset-0 bg-radial-grid opacity-70"></div>
+  <div
+    class="container-page relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center"
+  >
+    <SectionHeading
+      eyebrow="Comunicación con IA"
+      title="Enseñamos a comunicarse estratégicamente con la IA."
+    >
+      <p>
+        La mayoría usa los modelos como buscadores. Nosotros trabajamos
+        contexto, objetivo, estructura, evaluación e iteración para cambiar la
+        calidad del resultado.
+      </p>
+    </SectionHeading>
+    <div class="glass rounded-[2rem] p-6 sm:p-8">
+      <div class="grid gap-4">
+        {
+          promptPillars.map((pillar) => (
+            <div class="rounded-2xl border border-white/10 bg-night/45 p-5">
+              <h3 class="text-lg font-black text-white">{pillar.title}</h3>
+              <p class="mt-2 leading-7 text-slate-300">{pillar.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

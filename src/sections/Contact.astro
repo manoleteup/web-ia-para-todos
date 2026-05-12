@@ -1,0 +1,143 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { CONTACT } from "../data/site.js";
+import { buildWhatsAppUrl } from "../data/automation.js";
+---
+
+<section id="contacto" class="section-pad bg-night">
+  <div
+    class="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
+  >
+    <div>
+      <SectionHeading
+        eyebrow="Contacto"
+        title="Solicita información para activar el programa."
+      >
+        <p>
+          Ideal para empresas, colegios, municipalidades, instituciones públicas
+          y organizaciones que necesitan alfabetización en IA clara y aplicable.
+        </p>
+      </SectionHeading>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn-primary" href={`mailto:${CONTACT.contactEmail}`}
+          >Escribir correo</a
+        >
+        <a
+          class="btn-secondary"
+          href={buildWhatsAppUrl(
+            CONTACT.whatsappNumber,
+            CONTACT.whatsappMessage,
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <form
+      class="glass grid gap-5 rounded-[2rem] p-5 sm:p-7"
+      action="/contact.php"
+      method="POST"
+      id="contact-form"
+    >
+      <div id="form-success" class="hidden rounded-lg bg-emerald-500/20 p-4 text-emerald-300">
+        ✓ Mensaje enviado con éxito. Nos contactaremos pronto.
+      </div>
+      <div id="form-error" class="hidden rounded-lg bg-red-500/20 p-4 text-red-300">
+        Error al enviar. Por favor intenta de nuevo.
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="grid gap-2"
+          ><span class="field-label">Nombre</span><input
+            class="field"
+            name="nombre"
+            autocomplete="name"
+            required
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Correo</span><input
+            class="field"
+            name="correo"
+            type="email"
+            autocomplete="email"
+            required
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Teléfono</span><input
+            class="field"
+            name="telefono"
+            type="tel"
+            autocomplete="tel"
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Organización</span><input
+            class="field"
+            name="organizacion"
+            autocomplete="organization"
+          /></label
+        >
+      </div>
+      <label class="grid gap-2">
+        <span class="field-label">Tipo de interés</span>
+        <select class="field" name="tipo_interes" required>
+          <option value="">Seleccionar</option>
+          <option>Programa empresas</option>
+          <option>Programa municipal</option>
+          <option>Institución educativa</option>
+          <option>IA Para Todos Kids</option>
+          <option>Charla o taller</option>
+          <option>Otro</option>
+        </select>
+      </label>
+      <label class="grid gap-2">
+        <span class="field-label">Mensaje</span>
+        <textarea
+          class="field min-h-36 py-3"
+          name="mensaje"
+          placeholder="Quiero recibir información sobre IA Para Todos LATAM."
+          required></textarea>
+      </label>
+      <button class="btn-primary w-full" type="submit">Enviar consulta</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const successAlert = document.getElementById("form-success");
+  const errorAlert = document.getElementById("form-error");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    // Ocultar alertas previas
+    successAlert?.classList.add("hidden");
+    errorAlert?.classList.add("hidden");
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        successAlert?.classList.remove("hidden");
+        form.reset();
+      } else {
+        errorAlert?.classList.remove("hidden");
+        errorAlert.textContent = data.message || "Error al enviar el mensaje.";
+      }
+    } catch (error) {
+      errorAlert?.classList.remove("hidden");
+      errorAlert.textContent = "Hubo un error. Intenta de nuevo.";
+    }
+  });
+</script>

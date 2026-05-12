@@ -1,0 +1,41 @@
+---
+const goals = [
+  "Ser referente en alfabetización en IA en LATAM",
+  "Formar miles de personas",
+  "Expandir la línea Kids",
+  "Generar alianzas estratégicas regionales",
+  "Construir comunidad activa de creadores digitales",
+];
+---
+
+<section class="section-pad relative overflow-hidden bg-slateDeep/70">
+  <div class="absolute inset-0 bg-radial-grid opacity-60"></div>
+  <div
+    class="container-page relative grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center"
+  >
+    <div>
+      <p class="eyebrow">Visión</p>
+      <h2 class="heading-lg">
+        La IA será como la electricidad: invisible, pero esencial.
+      </h2>
+      <p class="mt-5 body-lg">
+        IA Para Todos LATAM existe para que todos sepan usarla, con criterio y
+        responsabilidad.
+      </p>
+    </div>
+    <div class="glass rounded-[2rem] p-6 sm:p-8">
+      <div class="grid gap-3">
+        {
+          goals.map((goal, index) => (
+            <div class="flex items-center gap-4 rounded-2xl bg-white/[0.05] p-4">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-cyan-300/10 text-sm font-black text-brandCyan">
+                {index + 1}
+              </span>
+              <span class="font-bold text-white">{goal}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+import {
+  Bot,
+  BookOpen,
+  FileText,
+  Globe2,
+  Image,
+  Mic2,
+  Palette,
+  Video,
+} from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const learnItems = [
+  {
+    title: "Textos profesionales",
+    text: "Correos, propuestas, informes y contenido claro.",
+    Icon: FileText,
+  },
+  {
+    title: "Imágenes con IA",
+    text: "Ideas visuales, piezas creativas y apoyo gráfico.",
+    Icon: Image,
+  },
+  {
+    title: "Música, voz y video",
+    text: "Recursos multimedia para comunicar mejor.",
+    Icon: Video,
+  },
+  {
+    title: "Voz y narración",
+    text: "Guiones, locuciones y presentaciones asistidas.",
+    Icon: Mic2,
+  },
+  {
+    title: "Avatares digitales",
+    text: "Presencia visual para educación, contenido y marca.",
+    Icon: Palette,
+  },
+  {
+    title: "Agentes GPT",
+    text: "Asistentes personalizados para tareas específicas.",
+    Icon: Bot,
+  },
+  {
+    title: "Páginas web con IA",
+    text: "Prototipos y presencia digital sin programación avanzada.",
+    Icon: Globe2,
+  },
+  {
+    title: "Ética y fundamentos",
+    text: "Historia, límites, riesgos y buenas prácticas.",
+    Icon: BookOpen,
+  },
+];
+---
+
+<section class="section-pad bg-night">
+  <div
+    class="container-page grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
+  >
+    <SectionHeading
+      eyebrow="Qué aprenderás"
+      title="Herramientas prácticas, explicadas de forma simple y cercana."
+    >
+      <p>
+        La formación conecta creatividad, productividad y responsabilidad en
+        actividades concretas.
+      </p>
+    </SectionHeading>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        learnItems.map(({ title, text, Icon }) => (
+          <div class="group flex gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-cyan-300/10">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-cyan-300/10 text-brandCyan ring-1 ring-cyan-300/20 transition group-hover:bg-cyan-300/20">
+              <Icon size={24} stroke-width={1.8} />
+            </span>
+            <span>
+              <span class="block font-black text-white">{title}</span>
+              <span class="mt-1 block text-sm leading-6 text-slate-400">
+                {text}
+              </span>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

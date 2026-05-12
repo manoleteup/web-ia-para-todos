@@ -1,0 +1,12 @@
+---
+const { eyebrow, title, align = "left" } = Astro.props;
+const alignment = align === "center" ? "mx-auto text-center" : "";
+---
+
+<div class={`max-w-3xl ${alignment}`}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2 class="heading-lg">{title}</h2>
+  <div class="mt-5 body-lg">
+    <slot />
+  </div>
+</div>

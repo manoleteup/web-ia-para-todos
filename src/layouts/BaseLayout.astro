@@ -1,0 +1,39 @@
+---
+import "../styles/global.css";
+import { CONTACT } from "../data/site.js";
+import favicon from "../assets/favicon.ico";
+
+const {
+  title = "IA Para Todos LATAM | Inteligencia Artificial Simple y Real",
+  description = "Programa formativo para aprender Inteligencia Artificial de forma simple, práctica, ética y aplicable. Formación para personas, empresas, instituciones y línea IA Kids.",
+} = Astro.props;
+
+const ogImage = `${CONTACT.siteUrl}/og-image.jpg`;
+const faviconHref = typeof favicon === "string" ? favicon : favicon.src;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#030712" />
+    <link rel="icon" href={faviconHref} sizes="any" />
+    <link rel="canonical" href={`${CONTACT.siteUrl}/`} />
+    <meta property="og:title" content="IA Para Todos LATAM" />
+    <meta
+      property="og:description"
+      content="Democratizando la Inteligencia Artificial en Latinoamérica."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${CONTACT.siteUrl}/`} />
+    <!-- TODO: crear og-image.jpg en 1200x630 y subirlo a la raíz del dominio. -->
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-night text-paper antialiased">
+    <slot />
+  </body>
+</html>

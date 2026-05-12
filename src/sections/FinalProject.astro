@@ -1,0 +1,63 @@
+---
+import { Bot, Lightbulb, Presentation, Workflow } from "lucide-astro";
+
+const flow = [
+  {
+    title: "Idea",
+    text: "Detectar una necesidad real y convertirla en objetivo.",
+    Icon: Lightbulb,
+  },
+  {
+    title: "IA",
+    text: "Usar herramientas y prompts con contexto y criterio.",
+    Icon: Bot,
+  },
+  {
+    title: "Proyecto",
+    text: "Construir una pieza útil, aplicable y responsable.",
+    Icon: Workflow,
+  },
+  {
+    title: "Presentación",
+    text: "Comunicar el resultado con claridad y evidencia.",
+    Icon: Presentation,
+  },
+];
+---
+
+<section class="section-pad bg-slateDeep/50">
+  <div
+    class="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"
+  >
+    <div>
+      <p class="eyebrow">Proyecto final</p>
+      <h2 class="heading-lg">
+        Las personas no solo aprenden teoría. Crean un proyecto real.
+      </h2>
+      <p class="mt-5 body-lg">
+        Cada participante aplica herramientas de IA y principios éticos en una
+        pieza concreta, útil y presentable.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      {
+        flow.map(({ title, text, Icon }, index) => (
+          <div class="glass group relative flex items-start gap-5 rounded-3xl p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-glow">
+            <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-cyan-300/15 to-violet-500/20 text-brandCyan ring-1 ring-white/10">
+              <Icon size={26} stroke-width={1.8} />
+            </span>
+            <div>
+              <p class="text-lg font-black text-white">{title}</p>
+              <p class="mt-1 leading-6 text-slate-400">{text}</p>
+            </div>
+            {index < flow.length - 1 && (
+              <span class="absolute -bottom-4 left-12 hidden text-brandCyan/70 lg:block">
+                ↓
+              </span>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

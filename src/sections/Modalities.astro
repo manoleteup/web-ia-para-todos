@@ -1,0 +1,76 @@
+---
+import {
+  BadgeCheck,
+  Building2,
+  GraduationCap,
+  Landmark,
+  MonitorPlay,
+  UsersRound,
+} from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const modalities = [
+  {
+    title: "Talleres presenciales",
+    text: "Sesiones prácticas para equipos, comunidades y grupos abiertos.",
+    Icon: UsersRound,
+  },
+  {
+    title: "Programas para empresas",
+    text: "Capacitación aplicada a productividad, procesos y comunicación.",
+    Icon: Building2,
+  },
+  {
+    title: "Instituciones educativas",
+    text: "Formación para docentes, estudiantes y equipos académicos.",
+    Icon: GraduationCap,
+  },
+  {
+    title: "Programas municipales",
+    text: "Alfabetización en IA para vecinos, emprendedores y funcionarios.",
+    Icon: Landmark,
+  },
+  {
+    title: "Versión online estructurada",
+    text: "Ruta digital modular para aprender con orden y continuidad.",
+    Icon: MonitorPlay,
+  },
+  {
+    title: "Certificación de participación",
+    text: "Reconocimiento formal del proceso formativo completado.",
+    Icon: BadgeCheck,
+  },
+];
+---
+
+<section id="modalidades" class="section-pad bg-night">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="Modalidades"
+      title="Adaptamos el contenido según el público."
+      align="center"
+    >
+      <p>
+        La implementación puede partir con talleres puntuales o convertirse en
+        programas institucionales completos.
+      </p>
+    </SectionHeading>
+    <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        modalities.map(({ title, text, Icon }) => (
+          <div class="group flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.05] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.08] hover:shadow-glow">
+            <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brandViolet/20 text-brandCyan ring-1 ring-white/10">
+              <Icon size={25} stroke-width={1.8} />
+            </span>
+            <span>
+              <span class="block font-black text-white">{title}</span>
+              <span class="mt-1 block text-sm leading-6 text-slate-400">
+                {text}
+              </span>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

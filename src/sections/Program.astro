@@ -1,0 +1,35 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { programModules } from "../data/site.js";
+---
+
+<section id="programa" class="section-pad bg-night">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="Programa de 12 módulos"
+      title="Formación integral, no fragmentada."
+      align="center"
+    >
+      <p>
+        Del fundamento a la aplicación: prompts, herramientas, ética, avatares,
+        agentes y creación web con IA.
+      </p>
+    </SectionHeading>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        programModules.map((module, index) => (
+          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] p-5">
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brandCyan via-brandSky to-brandViolet opacity-70" />
+            <span class="text-sm font-black text-brandCyan">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 class="mt-5 text-xl font-black text-white">{module.title}</h3>
+            <p class="mt-4 min-h-24 leading-7 text-slate-300">
+              {module.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

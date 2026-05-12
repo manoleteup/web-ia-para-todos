@@ -1,0 +1,82 @@
+---
+import { navItems } from "../data/site.js";
+import logo from "../assets/logo-simple.png";
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-night/72 backdrop-blur-xl"
+>
+  <div class="container-page flex h-20 items-center justify-between gap-5">
+    <a
+      href="#inicio"
+      class="flex items-center gap-3 font-black text-white"
+      aria-label="IA Para Todos LATAM"
+    >
+      <img
+        class="h-12 w-12 shrink-0 rounded-2xl object-contain sm:h-14 sm:w-14"
+        src={logo.src}
+        alt="IA Para Todos LATAM"
+      />
+      <span class="hidden leading-tight sm:block">
+        IA Para Todos
+        <span class="block text-xs font-bold uppercase text-brandCyan"
+          >LATAM</span
+        >
+      </span>
+    </a>
+
+    <nav
+      class="hidden items-center gap-7 text-sm font-semibold text-slate-300 lg:flex"
+      aria-label="Principal"
+    >
+      {
+        navItems.map((item) => (
+          <a class="transition hover:text-brandCyan" href={item.href}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a class="btn-primary hidden sm:inline-flex" href="#contacto"
+      >Solicitar información</a
+    >
+
+    <button
+      class="grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/10 text-white lg:hidden"
+      type="button"
+      aria-label="Abrir menú"
+      data-menu-button
+    >
+      <span class="text-2xl leading-none">≡</span>
+    </button>
+  </div>
+  <nav class="container-page hidden pb-5 lg:hidden" data-mobile-menu>
+    <div class="grid gap-2 rounded-3xl border border-white/10 bg-night/95 p-3">
+      {
+        navItems.map((item) => (
+          <a
+            class="rounded-2xl px-4 py-3 font-bold text-slate-200 hover:bg-white/10"
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a class="btn-primary mt-2" href="#contacto">Solicitar información</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector("[data-menu-button]");
+  const menu = document.querySelector("[data-mobile-menu]");
+
+  button?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => menu.classList.add("hidden"));
+  });
+</script>

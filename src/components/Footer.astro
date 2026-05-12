@@ -1,0 +1,52 @@
+---
+import { CONTACT, navItems } from "../data/site.js";
+import { buildWhatsAppUrl } from "../data/automation.js";
+import logo from "../assets/logo-simple.png";
+---
+
+<footer class="border-t border-white/10 bg-night py-10">
+  <div
+    class="container-page flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
+  >
+    <div>
+      <div class="mb-4 flex items-center gap-3">
+        <img
+          class="h-14 w-14 rounded-2xl object-contain"
+          src={logo.src}
+          alt="IA Para Todos LATAM"
+        />
+        <p class="text-lg font-black leading-tight text-white">
+          IA Para Todos
+          <span class="block text-xs font-bold uppercase text-brandCyan"
+            >LATAM</span
+          >
+        </p>
+      </div>
+      <p class="mt-2 text-sm text-slate-400">
+        Inteligencia Artificial. Simple. Real.
+      </p>
+    </div>
+    <nav class="flex flex-wrap gap-4 text-sm font-semibold text-slate-300">
+      {
+        navItems.map((item) => (
+          <a class="hover:text-brandCyan" href={item.href}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex flex-col gap-2 text-sm text-slate-400 md:text-right">
+      <a class="hover:text-brandCyan" href={`mailto:${CONTACT.contactEmail}`}
+        >{CONTACT.contactEmail}</a
+      >
+      <a
+        class="hover:text-brandCyan"
+        href={buildWhatsAppUrl(CONTACT.whatsappNumber, CONTACT.whatsappMessage)}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Hablar por WhatsApp
+      </a>
+    </div>
+  </div>
+</footer>

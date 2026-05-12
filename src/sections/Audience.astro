@@ -1,0 +1,84 @@
+---
+import {
+  Building2,
+  GraduationCap,
+  HeartHandshake,
+  Landmark,
+  Lightbulb,
+  Presentation,
+  School,
+  UsersRound,
+} from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const audiences = [
+  {
+    label: "Personas y familias",
+    text: "Uso cotidiano, organización, creatividad y decisiones informadas.",
+    Icon: UsersRound,
+  },
+  {
+    label: "Empresas",
+    text: "Productividad, procesos, contenido y adopción responsable.",
+    Icon: Building2,
+  },
+  {
+    label: "Docentes",
+    text: "Apoyo pedagógico, diseño de clases y evaluación con criterio.",
+    Icon: GraduationCap,
+  },
+  {
+    label: "Estudiantes",
+    text: "Aprendizaje activo, investigación y proyectos mejor estructurados.",
+    Icon: School,
+  },
+  {
+    label: "Adultos mayores",
+    text: "Acompañamiento claro, cercano y sin tecnicismos innecesarios.",
+    Icon: HeartHandshake,
+  },
+  {
+    label: "Emprendedores",
+    text: "Ideas, prototipos, marketing y automatización inicial.",
+    Icon: Lightbulb,
+  },
+  {
+    label: "Municipalidades",
+    text: "Programas comunitarios de alfabetización digital aplicada.",
+    Icon: Landmark,
+  },
+  {
+    label: "Instituciones",
+    text: "Capacitación transversal para equipos y comunidades.",
+    Icon: Presentation,
+  },
+];
+---
+
+<section class="section-pad bg-slateDeep/50">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="Público objetivo"
+      title="Diseñado para todo público."
+      align="center"
+    >
+      <p>
+        Requisito mínimo: saber leer y tener comprensión lectora básica. No se
+        necesitan conocimientos técnicos previos.
+      </p>
+    </SectionHeading>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        audiences.map(({ label, text, Icon }) => (
+          <div class="glass rounded-3xl p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-glow">
+            <span class="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-violet-500/15 text-brandCyan ring-1 ring-white/10">
+              <Icon size={24} stroke-width={1.8} />
+            </span>
+            <p class="text-base font-extrabold text-white">{label}</p>
+            <p class="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

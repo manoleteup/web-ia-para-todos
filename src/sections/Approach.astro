@@ -1,0 +1,55 @@
+---
+import { Brain, Lightbulb, Rocket, ShieldCheck } from "lucide-astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const featureCards = [
+  {
+    title: "Criterio",
+    text: "Aprender a decidir cuándo, cómo y para qué usar IA en contextos reales.",
+    Icon: Brain,
+  },
+  {
+    title: "Estructura",
+    text: "Ordenar ideas, objetivos y contexto antes de pedir resultados a un modelo.",
+    Icon: Lightbulb,
+  },
+  {
+    title: "Responsabilidad",
+    text: "Comprender límites, sesgos, riesgos y buenas prácticas de uso ético.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Práctica real",
+    text: "Aplicar IA en tareas concretas, proyectos útiles y procesos cotidianos.",
+    Icon: Rocket,
+  },
+];
+---
+
+<section class="section-pad bg-night">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="Enfoque"
+      title="No vendemos humo. Formamos criterio."
+      align="center"
+    >
+      <p>
+        El diferencial no está en mostrar una lista infinita de herramientas.
+        Está en formar personas capaces de usarlas con sentido.
+      </p>
+    </SectionHeading>
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {
+        featureCards.map(({ title, text, Icon }) => (
+          <article class="glass min-h-64 rounded-3xl p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-violet">
+            <div class="mb-7 grid h-14 w-14 place-items-center rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-cyan-300/20 to-violet-500/20 text-brandCyan">
+              <Icon size={28} stroke-width={1.8} />
+            </div>
+            <h3 class="text-2xl font-black text-white">{title}</h3>
+            <p class="mt-3 leading-7 text-slate-300">{text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

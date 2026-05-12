@@ -1,0 +1,87 @@
+---
+import heroImage from "../assets/hero-comunidad-ia.png";
+import { CONTACT } from "../data/site.js";
+import { buildWhatsAppUrl } from "../data/automation.js";
+---
+
+<section
+  id="inicio"
+  class="particle-field relative min-h-screen overflow-hidden bg-night pt-28"
+>
+  <div class="absolute inset-0 bg-radial-grid"></div>
+  <img
+    class="absolute inset-0 h-full w-full object-cover opacity-45"
+    src={heroImage.src}
+    alt=""
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-night via-night/86 to-slateDeep/45"
+  >
+  </div>
+  <div
+    class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-night to-transparent"
+  >
+  </div>
+  <div class="infinity-ring right-[-120px] top-44 hidden lg:block"></div>
+
+  <div
+    class="container-page relative z-10 grid min-h-[calc(100vh-7rem)] items-center py-16 lg:grid-cols-[1.05fr_0.95fr]"
+  >
+    <div class="max-w-4xl">
+      <p class="eyebrow">✦ Democratizando la IA en Latinoamérica</p>
+      <h1 class="heading-xl">Inteligencia Artificial para personas reales.</h1>
+      <p
+        class="mt-6 max-w-2xl text-xl font-semibold text-brandCyan sm:text-2xl"
+      >
+        Simple. Real. Aplicable.
+      </p>
+      <p class="mt-6 max-w-2xl body-lg">
+        Aprende a usar la IA con criterio, estrategia y responsabilidad. Sin
+        tecnicismos innecesarios. Sin humo.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a class="btn-primary" href="#contacto">Solicitar información →</a>
+        <a
+          class="btn-secondary"
+          href={buildWhatsAppUrl(
+            CONTACT.whatsappNumber,
+            CONTACT.whatsappMessage,
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+      <div class="mt-9 grid max-w-2xl gap-3 sm:grid-cols-3">
+        {
+          [
+            "12 módulos",
+            "Sin conocimientos técnicos previos",
+            "Enfoque ético",
+          ].map((item) => (
+            <div class="glass rounded-2xl px-4 py-4 text-sm font-bold text-slate-100">
+              {item}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-12 hidden lg:block">
+      <div class="glass relative rounded-[2rem] p-5">
+        <div
+          class="absolute -left-5 -top-5 h-24 w-24 rounded-full bg-brandViolet/40 blur-2xl"
+        >
+        </div>
+        <div class="rounded-[1.5rem] border border-white/10 bg-night/70 p-7">
+          <p class="text-sm font-bold uppercase text-brandCyan">Frase fuerte</p>
+          <p class="mt-5 text-3xl font-black leading-tight text-white">
+            “La Inteligencia Artificial no reemplazará a quienes la entienden.
+            Reemplazará a quienes la ignoren.”
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { CONTACT } from "../data/site.js";
+import { buildWhatsAppUrl } from "../data/automation.js";
+---
+
+<section id="contacto" class="section-pad bg-night">
+  <div
+    class="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
+  >
+    <div>
+      <SectionHeading
+        eyebrow="Contacto"
+        title="Solicita información para activar el programa."
+      >
+        <p>
+          Ideal para empresas, colegios, municipalidades, instituciones públicas
+          y organizaciones que necesitan alfabetización en IA clara y aplicable.
+        </p>
+      </SectionHeading>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn-primary" href={`mailto:${CONTACT.contactEmail}`}
+          >Escribir correo</a
+        >
+        <a
+          class="btn-secondary"
+          href={buildWhatsAppUrl(
+            CONTACT.whatsappNumber,
+            CONTACT.whatsappMessage,
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <form
+      class="glass grid gap-5 rounded-[2rem] p-5 sm:p-7"
+      action={`mailto:${CONTACT.contactEmail}`}
+      method="post"
+      enctype="text/plain"
+      data-form-provider=""
+      data-endpoint=""
+    >
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="grid gap-2"
+          ><span class="field-label">Nombre</span><input
+            class="field"
+            name="nombre"
+            autocomplete="name"
+            required
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Correo</span><input
+            class="field"
+            name="correo"
+            type="email"
+            autocomplete="email"
+            required
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Teléfono</span><input
+            class="field"
+            name="telefono"
+            type="tel"
+            autocomplete="tel"
+          /></label
+        >
+        <label class="grid gap-2"
+          ><span class="field-label">Organización</span><input
+            class="field"
+            name="organizacion"
+            autocomplete="organization"
+          /></label
+        >
+      </div>
+      <label class="grid gap-2">
+        <span class="field-label">Tipo de interés</span>
+        <select class="field" name="tipo_interes" required>
+          <option value="">Seleccionar</option>
+          <option>Programa empresas</option>
+          <option>Programa municipal</option>
+          <option>Institución educativa</option>
+          <option>IA Para Todos Kids</option>
+          <option>Charla o taller</option>
+          <option>Otro</option>
+        </select>
+      </label>
+      <label class="grid gap-2">
+        <span class="field-label">Mensaje</span>
+        <textarea
+          class="field min-h-36 py-3"
+          name="mensaje"
+          placeholder="Quiero recibir información sobre IA Para Todos LATAM."
+          required></textarea>
+      </label>
+      <button class="btn-primary w-full" type="submit">Enviar consulta</button>
+      <p class="text-xs leading-6 text-slate-500">
+        Preparado para futura integración con Formspree, EmailJS o endpoint
+        externo cambiando `action`, `data-form-provider` o `data-endpoint`.
+      </p>
+    </form>
+  </div>
+</section>
