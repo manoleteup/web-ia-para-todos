@@ -1,4 +1,6 @@
-# cPanel / Apache — sitio estático Astro (`/kids/` → `kids/index.html`)
+# cPanel / Apache — sitio estático Astro
+# Canónica: https://iaparatodoslatam.com (sin www)
+# Si el dominio cambia, actualiza las líneas que citan iaparatodoslatam.com
 
 <IfModule mod_dir.c>
   DirectoryIndex index.html index.php
@@ -9,10 +11,29 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # /kids → /kids/ (evita rutas duplicadas y confusión del navegador)
+  # No redirigir validación SSL (Let's Encrypt / cPanel AutoSSL)
+  RewriteCond %{REQUEST_URI} !^/\.well-known
+
+  # 1) Cualquier HTTP → https://iaparatodoslatam.com/... (una sola redirección, quita www si venía en la URL)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://iaparatodoslatam.com%{REQUEST_URI} [L,R=301,QSA]
+
+  # 2) https://www.iaparatodoslatam.com/... → https://iaparatodoslatam.com/...
+  RewriteCond %{HTTP_HOST} ^www\.iaparatodoslatam\.com$ [NC]
+  RewriteRule ^ https://iaparatodoslatam.com%{REQUEST_URI} [L,R=301,QSA]
+
+  # Si el panel muestra HTTPS pero Apache ve "HTTPS off" (proxy), descomenta lo siguiente
+  # y comenta el bloque (1) para probar:
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://iaparatodoslatam.com%{REQUEST_URI} [L,R=301,QSA]
+
+  # /kids → /kids/
   RewriteRule ^kids$ kids/ [R=301,L]
 </IfModule>
 
 <IfModule mod_mime.c>
   AddType image/webp .webp
 </IfModule>
+
+AddDefaultCharset UTF-8

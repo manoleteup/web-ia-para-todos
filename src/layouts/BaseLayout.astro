@@ -4,15 +4,26 @@ import { CONTACT } from "../data/site.js";
 import { absoluteUrl } from "../utils/url";
 import favicon from "../assets/favicon.ico";
 
+const defaultDescription =
+  "Formación en inteligencia artificial en Latinoamérica: talleres, libro, programa social e IA Kids. Enfoque simple, humano y responsable.";
 const {
   title = "IA Para Todos LATAM | Inteligencia Artificial Simple y Real",
-  description = "IA Para Todos LATAM es un ecosistema de aprendizaje que acerca la Inteligencia Artificial a personas, comunidades, instituciones y niños de forma simple, humana y responsable.",
+  description = defaultDescription,
   canonical = absoluteUrl(CONTACT.siteUrl, "/"),
   ogUrl = canonical,
   ogTitle = "IA Para Todos LATAM",
-  ogDescription = "IA Para Todos LATAM es un ecosistema de aprendizaje que acerca la Inteligencia Artificial a personas, comunidades, instituciones y niños de forma simple, humana y responsable.",
+  ogDescription = defaultDescription,
   ogImage = absoluteUrl(CONTACT.siteUrl, "/og-image.jpg"),
 } = Astro.props;
+
+const organizationJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "IA Para Todos LATAM",
+  url: CONTACT.siteUrl.replace(/\/$/, "") + "/",
+  description: defaultDescription,
+  logo: ogImage,
+});
 
 const faviconHref = typeof favicon === "string" ? favicon : (favicon as { src: string }).src;
 ---
@@ -25,6 +36,7 @@ const faviconHref = typeof favicon === "string" ? favicon : (favicon as { src: s
     <meta name="description" content={description} />
     <meta name="theme-color" content="#030712" />
     <link rel="icon" href={faviconHref} sizes="any" />
+    <link rel="apple-touch-icon" href={faviconHref} />
     <link rel="canonical" href={canonical} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,6 +55,7 @@ const faviconHref = typeof favicon === "string" ? favicon : (favicon as { src: s
     <meta property="og:url" content={ogUrl} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={organizationJsonLd} />
     <title>{title}</title>
   </head>
   <body class="bg-night text-paper antialiased">

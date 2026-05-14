@@ -137,14 +137,14 @@ export const promptPillars = [
 export const heroContent = {
   title: "Humanizamos la Inteligencia Artificial para Latinoamérica.",
   subtitle:
-    "Acercamos la IA a personas, familias, comunidades e instituciones mediante experiencias de aprendizaje simples, humanas y aplicables.",
+    "Humanizamos la inteligencia artificial en Latinoamérica: la acercamos a personas, familias, comunidades e instituciones con experiencias de aprendizaje simples, humanas y aplicables.",
   primaryCta: "Conocer el ecosistema",
   secondaryCta: "Explorar IA Kids",
 };
 
 export const ecosystemCards = [
   {
-    title: "IA Para Todos LATAM",
+    title: "Formación para personas e instituciones",
     description:
       "Una línea formativa para personas, comunidades, empresas e instituciones que buscan comprender y aplicar la IA en la vida real.",
     items: ["Talleres", "Programa Social", "Libro", "Cursos"],
