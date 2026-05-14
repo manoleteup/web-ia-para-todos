@@ -1,7 +1,8 @@
 ---
-import heroImage from "../assets/hero-comunidad-ia.png";
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero-comunidad-ia.webp";
 import { heroContent } from "../data/site.js";
-import { withBase } from "../utils/url.ts";
+import { withBase } from "../utils/url";
 import { HeartHandshake, Lightbulb, Users } from "lucide-astro";
 
 const kidsHref = withBase("/kids/");
@@ -27,10 +28,14 @@ const heroCards = [
   class="relative min-h-screen overflow-hidden bg-night pt-28"
 >
   <div class="absolute inset-0 bg-gradient-to-b from-slateDeep/60 via-night to-night"></div>
-  <img
+  <Image
     class="hero-drift absolute inset-0 h-full w-full object-cover opacity-30"
-    src={heroImage.src}
+    src={heroImage}
     alt=""
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
   />
   <div
     class="absolute inset-0 bg-gradient-to-r from-night/95 via-night/85 to-slateDeep/55"

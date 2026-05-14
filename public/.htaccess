@@ -1,0 +1,18 @@
+# cPanel / Apache — sitio estático Astro (`/kids/` → `kids/index.html`)
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.html index.php
+</IfModule>
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # /kids → /kids/ (evita rutas duplicadas y confusión del navegador)
+  RewriteRule ^kids$ kids/ [R=301,L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+</IfModule>

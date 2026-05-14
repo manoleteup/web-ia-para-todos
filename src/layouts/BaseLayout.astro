@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { CONTACT } from "../data/site.js";
-import { absoluteUrl } from "../utils/url.ts";
+import { absoluteUrl } from "../utils/url";
 import favicon from "../assets/favicon.ico";
 
 const {
@@ -26,6 +26,17 @@ const faviconHref = typeof favicon === "string" ? favicon : (favicon as { src: s
     <meta name="theme-color" content="#030712" />
     <link rel="icon" href={faviconHref} sizes="any" />
     <link rel="canonical" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:type" content="website" />

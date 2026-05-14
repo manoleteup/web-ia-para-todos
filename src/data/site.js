@@ -1,8 +1,16 @@
+import ikoImg from "../assets/kids/iko.webp";
+import pixaImg from "../assets/kids/pixa.webp";
+import novaImg from "../assets/kids/nova.webp";
+import bitImg from "../assets/kids/bit.webp";
+import lucecitaImg from "../assets/kids/lucecita.webp";
+import teoImg from "../assets/kids/teo.webp";
+import portadaBitLucecita from "../assets/kids/portada-bit-lucecita.webp";
+
 export const CONTACT = {
   contactEmail: "contacto@iaparatodoslatam.com",
   email: "contacto@iaparatodoslatam.com",
   siteUrl: "https://iaparatodoslatam.com",
-  whatsappNumber: "56993019629",
+  whatsappNumber: "56964514614",
   whatsappMessage:
     "Hola IA Para Todos LATAM, quiero recibir información sobre sus programas.",
   socials: {
@@ -196,21 +204,21 @@ export const kidsCharacters = [
   {
     name: "Iko",
     role: "El curioso digital",
-    image: "/kids/iko.png",
+    image: ikoImg,
     description: "Explora ideas, hace preguntas y descubre la IA jugando.",
     color: "blue",
   },
   {
     name: "Pixa",
     role: "La creativa",
-    image: "/kids/pixa.png",
+    image: pixaImg,
     description: "Convierte imaginación en colores, imágenes e historias.",
     color: "pink",
   },
   {
     name: "Nova",
     role: "La exploradora del futuro",
-    image: "/kids/nova.png",
+    image: novaImg,
     description: "Invita a imaginar nuevos mundos, prototipos y soluciones.",
     color: "violet",
   },
@@ -218,7 +226,7 @@ export const kidsCharacters = [
     name: "Bit",
     role: "El mentor inteligente",
     description: "Ayuda a pensar con lógica, responsabilidad y tecnología.",
-    image: "/kids/bit.png",
+    image: bitImg,
     color: "green",
   },
   {
@@ -226,7 +234,7 @@ export const kidsCharacters = [
     role: "La ayuda luminosa",
     description:
       "Recuerda que la tecnología ayuda mejor cuando pedimos con claridad y propósito.",
-    image: "/kids/lucecita.png",
+    image: lucecitaImg,
     color: "yellow",
   },
   {
@@ -234,7 +242,7 @@ export const kidsCharacters = [
     role: "El narrador y guía",
     description:
       "Acompaña la aventura con ideas simples para aprender mejor.",
-    image: "/kids/teo.png",
+    image: teoImg,
     color: "cyan",
   },
 ];
@@ -250,7 +258,7 @@ export const featuredKidsBook = {
   age: "3 a 5 años",
   narrator: "Teo",
   url: amazonBookUrl,
-  image: "/kids/portada-bit-lucecita.png",
+  image: portadaBitLucecita,
 };
 
 export const kidsBooks = {

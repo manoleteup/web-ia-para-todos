@@ -9,7 +9,7 @@ import {
 } from "lucide-astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { ecosystemCards } from "../data/site.js";
-import { withBase } from "../utils/url.ts";
+import { withBase } from "../utils/url";
 
 function resolveHref(href: string): string {
   if (!href) return href;
@@ -19,7 +19,7 @@ function resolveHref(href: string): string {
     href === "/" || href.includes(".") || href.endsWith("/")
       ? href
       : `${href}/`;
-  return withBase(withTrailing);
+  return withBase(withTrailing);  
 }
 
 const itemIcons: Record<string, typeof Sparkles> = {
@@ -58,12 +58,6 @@ const itemIcons: Record<string, typeof Sparkles> = {
             style={`transition-delay: ${index * 90}ms`}
           >
             <div class="relative">
-              <div class="ecosystem-line-badge">
-                <span class="grid h-5 w-5 place-items-center rounded-full bg-cyan-300/25 text-[10px] font-black text-cyan-50">
-                  {index + 1}
-                </span>
-                Línea {index + 1}
-              </div>
               <h3 class="mt-4 text-3xl font-black leading-tight text-white">
                 {card.title}
               </h3>

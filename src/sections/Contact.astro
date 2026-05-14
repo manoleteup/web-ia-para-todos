@@ -2,7 +2,7 @@
 import SectionHeading from "../components/SectionHeading.astro";
 import { CONTACT } from "../data/site.js";
 import { buildWhatsAppUrl } from "../data/automation.js";
-import { withBase } from "../utils/url.ts";
+import { withBase } from "../utils/url";
 
 const contactAction = withBase("/contact.php");
 ---
@@ -40,56 +40,107 @@ const contactAction = withBase("/contact.php");
     </div>
 
     <form
-      class="glass grid gap-5 rounded-[2rem] p-5 sm:p-7"
+      class="glass relative grid gap-5 rounded-[2rem] p-5 sm:p-7"
       action={contactAction}
       method="POST"
       id="contact-form"
       data-reveal
       style="transition-delay: 100ms"
     >
-      <div id="form-success" class="hidden rounded-lg bg-emerald-500/20 p-4 text-emerald-300">
+      <div
+        id="form-success"
+        class="hidden rounded-lg bg-emerald-500/20 p-4 text-emerald-300"
+      >
         ✓ Mensaje enviado con éxito. Nos contactaremos pronto.
       </div>
-      <div id="form-error" class="hidden rounded-lg bg-red-500/20 p-4 text-red-300">
+      <div
+        id="form-error"
+        class="hidden rounded-lg bg-red-500/20 p-4 text-red-300"
+      >
         Error al enviar. Por favor intenta de nuevo.
       </div>
+      <input
+        type="text"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+        class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+      />
+      <input type="hidden" name="loaded_at" value="" data-loaded-at />
+      <p class="text-xs text-slate-400">
+        Los campos marcados con <span class="text-red-400">*</span> son obligatorios.
+      </p>
       <div class="grid gap-5 sm:grid-cols-2">
-        <label class="grid gap-2"
-          ><span class="field-label">Nombre</span><input
+        <label class="grid gap-2">
+          <span class="field-label">
+            Nombre
+            <span class="text-red-400" aria-hidden="true">*</span>
+            <span class="sr-only">(obligatorio)</span>
+          </span>
+          <input
             class="field"
             name="nombre"
             autocomplete="name"
             required
-          /></label
-        >
-        <label class="grid gap-2"
-          ><span class="field-label">Correo</span><input
+            aria-required="true"
+          />
+        </label>
+        <label class="grid gap-2">
+          <span class="field-label">
+            Correo
+            <span class="text-red-400" aria-hidden="true">*</span>
+            <span class="sr-only">(obligatorio)</span>
+          </span>
+          <input
             class="field"
             name="correo"
             type="email"
             autocomplete="email"
             required
-          /></label
-        >
-        <label class="grid gap-2"
-          ><span class="field-label">Teléfono</span><input
+            aria-required="true"
+          />
+        </label>
+        <label class="grid gap-2">
+          <span class="field-label">
+            Teléfono
+            <span class="ml-1 text-xs font-medium text-slate-500">
+              (opcional)
+            </span>
+          </span>
+          <input
             class="field"
             name="telefono"
             type="tel"
             autocomplete="tel"
-          /></label
-        >
-        <label class="grid gap-2"
-          ><span class="field-label">Organización</span><input
+          />
+        </label>
+        <label class="grid gap-2">
+          <span class="field-label">
+            Organización
+            <span class="ml-1 text-xs font-medium text-slate-500">
+              (opcional)
+            </span>
+          </span>
+          <input
             class="field"
             name="organizacion"
             autocomplete="organization"
-          /></label
-        >
+          />
+        </label>
       </div>
       <label class="grid gap-2">
-        <span class="field-label">Tipo de interés</span>
-        <select class="field" name="tipo_interes" required>
+        <span class="field-label">
+          Tipo de interés
+          <span class="text-red-400" aria-hidden="true">*</span>
+          <span class="sr-only">(obligatorio)</span>
+        </span>
+        <select
+          class="field"
+          name="tipo_interes"
+          required
+          aria-required="true"
+        >
           <option value="">Seleccionar</option>
           <option>Programa empresas</option>
           <option>Programa municipal</option>
@@ -100,12 +151,17 @@ const contactAction = withBase("/contact.php");
         </select>
       </label>
       <label class="grid gap-2">
-        <span class="field-label">Mensaje</span>
+        <span class="field-label">
+          Mensaje
+          <span class="text-red-400" aria-hidden="true">*</span>
+          <span class="sr-only">(obligatorio)</span>
+        </span>
         <textarea
           class="field min-h-36 py-3"
           name="mensaje"
           placeholder="Quiero recibir información sobre IA Para Todos LATAM."
-          required></textarea>
+          required
+          aria-required="true"></textarea>
       </label>
       <button class="btn-primary w-full" type="submit">Enviar consulta</button>
     </form>
@@ -117,33 +173,72 @@ const contactAction = withBase("/contact.php");
   const successAlert = document.getElementById("form-success");
   const errorAlert = document.getElementById("form-error");
 
+  // Time-trap: anti-bot. Marcamos cuándo se cargó el form.
+  // Backend exigirá un mínimo de tiempo entre carga y submit.
+  const loadedAtInput = form?.querySelector<HTMLInputElement>(
+    "[data-loaded-at]",
+  );
+  if (loadedAtInput) {
+    loadedAtInput.value = String(Date.now());
+  }
+
+  function showError(msg: string) {
+    if (!errorAlert) return;
+    errorAlert.classList.remove("hidden");
+    errorAlert.textContent = msg;
+  }
+
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
-    // Ocultar alertas previas
+
     successAlert?.classList.add("hidden");
     errorAlert?.classList.add("hidden");
+
+    const submitBtn = form.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
+    const originalLabel = submitBtn?.textContent;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando…";
+    }
 
     try {
       const formData = new FormData(form);
       const response = await fetch(form.action, {
         method: "POST",
         body: formData,
+        headers: { Accept: "application/json" },
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data: { success?: boolean; message?: string } = {};
+      try {
+        data = JSON.parse(text);
+      } catch {
+        showError(
+          `El servidor respondió con un formato inesperado (HTTP ${response.status}). Escribe a contacto@iaparatodoslatam.com o por WhatsApp.`,
+        );
+        return;
+      }
 
       if (data.success) {
         successAlert?.classList.remove("hidden");
         form.reset();
-      } else if (errorAlert) {
-        errorAlert.classList.remove("hidden");
-        errorAlert.textContent = data.message || "Error al enviar el mensaje.";
+      } else {
+        showError(
+          data.message ||
+            "No pudimos enviar el mensaje. Intenta de nuevo o escríbenos por correo.",
+        );
       }
-    } catch (error) {
-      if (errorAlert) {
-        errorAlert.classList.remove("hidden");
-        errorAlert.textContent = "Hubo un error. Intenta de nuevo.";
+    } catch (_error) {
+      showError(
+        "Sin conexión con el servidor. Verifica tu internet o escríbenos por WhatsApp.",
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel ?? "Enviar consulta";
       }
     }
   });

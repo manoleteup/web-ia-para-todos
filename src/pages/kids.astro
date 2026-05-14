@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   ArrowLeft,
@@ -23,15 +24,14 @@ import {
   kidsForFamilies,
   kidsLearningItems,
 } from "../data/site.js";
-import { absoluteUrl, withBase } from "../utils/url.ts";
+import { absoluteUrl, withBase } from "../utils/url";
+import ikoMiniImg from "../assets/kids/iko.webp";
+import pixaMiniImg from "../assets/kids/pixa.webp";
 
 const kidsCanonical = absoluteUrl(CONTACT.siteUrl, "/kids/");
 const kidsOgImage = absoluteUrl(CONTACT.siteUrl, "/og-image.jpg");
 const homeHref = withBase("/");
 const homeContactHref = withBase("/#contacto");
-const featuredBookImage = withBase(featuredKidsBook.image);
-const ikoImg = withBase("/kids/iko.png");
-const pixaImg = withBase("/kids/pixa.png");
 
 // Tematización por personaje (slug, glow, accent y motif)
 const characterThemes: Record<
@@ -250,10 +250,13 @@ const universeLines = [
             <div
               class="relative rounded-[2rem] border border-amber-200/40 bg-white/95 p-3 shadow-[0_30px_60px_rgba(123,44,191,0.45)]"
             >
-              <img
-                src={featuredBookImage}
+              <Image
+                src={featuredKidsBook.image}
                 alt={`Portada del cuento ${featuredKidsBook.title}`}
                 class="mx-auto h-[26rem] w-full rounded-[1.5rem] object-contain"
+                widths={[240, 360, 480, 640]}
+                sizes="(min-width: 1024px) 24rem, (min-width: 640px) 22rem, 70vw"
+                quality={72}
                 loading="eager"
                 fetchpriority="high"
               />
@@ -268,23 +271,27 @@ const universeLines = [
           </div>
 
           <!-- Mini personajes flotando alrededor -->
-          <img
-            src={ikoImg}
+          <Image
+            src={ikoMiniImg}
             alt=""
             aria-hidden="true"
             class="absolute -left-2 top-6 hidden h-16 w-16 object-contain lg:block"
             style="animation: kids-float 8s ease-in-out infinite;"
             data-parallax="0.6"
-            loading="lazy"
+            widths={[96, 160]}
+            sizes="96px"
+            loading="eager"
           />
-          <img
-            src={pixaImg}
+          <Image
+            src={pixaMiniImg}
             alt=""
             aria-hidden="true"
             class="absolute -bottom-2 right-0 hidden h-20 w-20 object-contain lg:block"
             style="animation: kids-float 9s ease-in-out infinite;"
             data-parallax="0.7"
-            loading="lazy"
+            widths={[96, 160]}
+            sizes="96px"
+            loading="eager"
           />
         </div>
       </div>
@@ -317,10 +324,13 @@ const universeLines = [
             <div
               class="relative rounded-[2rem] border border-fuchsia-200/60 bg-white p-4 shadow-[0_24px_48px_rgba(123,44,191,0.18)]"
             >
-              <img
-                src={featuredBookImage}
+              <Image
+                src={featuredKidsBook.image}
                 alt={`Portada del cuento ${featuredKidsBook.title}`}
                 class="mx-auto h-[25rem] w-full rounded-[1.4rem] object-contain"
+                widths={[240, 360, 480, 640]}
+                sizes="(min-width: 1024px) 22rem, (min-width: 640px) 20rem, 70vw"
+                quality={75}
                 loading="lazy"
               />
             </div>
@@ -445,10 +455,12 @@ const universeLines = [
                   >
                     <div class="kids-char-image-wrap">
                       {character.image ? (
-                        <img
-                          src={withBase(character.image)}
+                        <Image
+                          src={character.image}
                           alt={`Personaje ${character.name} de IA Para Todos Kids`}
-                          loading={isFirst ? "eager" : "lazy"}
+                          widths={[200, 320, 480]}
+                          sizes="(min-width: 1024px) 14rem, (min-width: 640px) 12rem, 50vw"
+                          loading="lazy"
                         />
                       ) : (
                         <div
@@ -460,7 +472,9 @@ const universeLines = [
                         </div>
                       )}
                     </div>
-                    <h3 class="kids-char-name">{character.name}</h3>
+                    <h3 class="kids-char-name" aria-label={character.name}>
+                      {character.name}
+                    </h3>
                     <p class="kids-char-role">{character.role}</p>
                     <p class="kids-char-desc">{character.description}</p>
                   </article>
@@ -497,7 +511,14 @@ const universeLines = [
                       style={`--tilt: ${tabTilts[i] ?? "0deg"}; --char-accent: ${theme.accent}; background: ${tabBackgrounds[i] ?? "#fff"};`}
                     >
                       {character.image ? (
-                        <img src={withBase(character.image)} alt="" aria-hidden="true" loading="lazy" />
+                        <Image
+                          src={character.image}
+                          alt=""
+                          aria-hidden="true"
+                          widths={[64, 96, 128]}
+                          sizes="64px"
+                          loading="lazy"
+                        />
                       ) : (
                         <div
                           class="grid h-14 w-14 place-items-center rounded-full"

@@ -1,8 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import { ArrowRight, Sparkles } from "lucide-astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { kidsCharacters } from "../data/site.js";
-import { withBase } from "../utils/url.ts";
+import { withBase } from "../utils/url";
 
 const kidsHref = withBase("/kids/");
 ---
@@ -51,10 +52,12 @@ const kidsHref = withBase("/kids/");
             style={`transition-delay: ${i * 80}ms`}
           >
             <div class="mx-auto flex h-28 w-28 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/50 p-2">
-              <img
-                src={withBase(character.image)}
+              <Image
+                src={character.image}
                 alt={`Personaje ${character.name} IA Para Todos Kids`}
                 class="h-full w-full object-contain"
+                widths={[112, 192, 256]}
+                sizes="112px"
                 loading="lazy"
               />
             </div>
